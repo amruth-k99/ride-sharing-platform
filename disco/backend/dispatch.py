@@ -28,6 +28,7 @@ def estimate_price(distance_km, vehicle_type):
         "sedan": {"base_fare": 5.00, "per_km_rate": 2.00},
         "suv": {"base_fare": 7.00, "per_km_rate": 2.50},
         "bike": {"base_fare": 3.00, "per_km_rate": 1.50},
+        "truck": {"base_fare": 10.00, "per_km_rate": 3.00},
     }
 
     if vehicle_type not in pricing:

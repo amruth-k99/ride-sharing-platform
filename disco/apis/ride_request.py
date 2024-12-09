@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
+@require_http_methods(["POST", "OPTIONS"])
 def create_ride_request_api(request):
 
     request_body = get_request_body(request)
@@ -28,8 +28,6 @@ def create_ride_request_api(request):
     destination_address = request_body.get("destination_address")
     vehicle_type = request_body.get("vehicle_type")
     payment_type = request_body.get("payment_type")
-
-    vehicle_type = 'sedan'
 
     source_location = Locations.add_location(
         source_latitude,
@@ -48,6 +46,7 @@ def create_ride_request_api(request):
         user_profile_id,
         source_location,
         destination_location,
+
         vehicle_type,
     )
     print("source_location: ", response)
@@ -56,7 +55,7 @@ def create_ride_request_api(request):
 
 
 @ csrf_exempt
-@ require_http_methods(["POST"])
+@ require_http_methods(["POST", "OPTIONS"])
 def get_nearby_riders(request):
 
     request_body = get_request_body(request)
@@ -81,8 +80,12 @@ def get_nearby_riders(request):
 
 
 @ csrf_exempt
-@ require_http_methods(["POST"])
+@ require_http_methods(["POST", "OPTIONS"])
 def get_estimated_fare(request):
+
+    # for options method
+    if request.method == "OPTIONS":
+        return JsonResponse({})
 
     request_body = get_request_body(request)
 
@@ -91,6 +94,11 @@ def get_estimated_fare(request):
     destination_latitude = request_body.get("destination_latitude")
     destination_longitude = request_body.get("destination_longitude")
     vehicle_type = request_body.get("vehicle_type")
+    print(source_latitude,
+          source_longitude,
+          destination_latitude,
+          destination_longitude,
+          vehicle_type)
 
     return JsonResponse(
         get_estimated_fares(

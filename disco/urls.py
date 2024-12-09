@@ -14,9 +14,9 @@ urlpatterns = [
     path("list/<user_id>/", get_all_rides),
     path("estimate/", get_estimated_fare),
 
-    path("requests/", get_ride_requests),
-    path("create/", create_ride_request_api),
-    path("status/<ride_id>/", get_ride_details),
-    path("accept-ride/", accept_ride_api),
-    path("complete-ride/", complete_ride),
+    path("requests/", get_ride_requests),  # provider
+    path("create/", create_ride_request_api),  # client
+    path("status/<ride_id>/", get_ride_details),  # client
+    path("accept-ride/", accept_ride_api),  # provider
+    path("complete-ride/", complete_ride),  # provider
 ]
